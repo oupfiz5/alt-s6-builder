@@ -5,7 +5,7 @@ set -a; source ../VERSIONS ; set +a;
 IMAGE="${IMAGE:-${IMAGE_REPOSITORY}/${IMAGE_NAME}:${IMAGE_TAG}}"
 DOCKERFILE="${DOCKERFILE:-Dockerfile}"
 
-docker build \
+docker buildx build \
        --build-arg BASE_IMAGE_REPOSITORY="${BASE_IMAGE_REPOSITORY}" \
        --build-arg BASE_IMAGE_NAME="${BASE_IMAGE_NAME}" \
        --build-arg BASE_IMAGE_TAG="${BASE_IMAGE_TAG}" \

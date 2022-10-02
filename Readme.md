@@ -31,9 +31,9 @@
 
 # About
 
-This is [ubuntu base docker image](https://hub.docker.com/_/ubuntu) (version 20.04) using [s6-overlay](https://github.com/just-containers/s6-overlay) for buid tcl software. The basic idea was taken from [tcl2020-build](https://github.com/tcl2020/tcl2020-build) .
+This is [alt base docker image](https://hub.docker.com/_/alt) using [s6-overlay](https://github.com/just-containers/s6-overlay) for buid software under linux. The basic idea was taken from [tcl2020-build](https://github.com/tcl2020/tcl2020-build) .
 
-Tcl-build is self-hosting at <https://chiselapp.com/user/oupfiz5/repository/tcl-build>.
+It  is self-hosting at <https://chiselapp.com/user/oupfiz5/repository/alt-s6-builder>.
 
 If you are reading this on GitHub, then you are looking at a Git mirror of the self-hosting tcl-build repository.  The purpose of that mirror is to test and exercise Fossil's ability to export a Git mirror and using Github CI/CD  (Github Actions). Nobody much uses the GitHub mirror, except to verify that the mirror logic works. If you want to know more about tcl-build, visit the official self-hosting site linked above.
 
@@ -76,28 +76,27 @@ They are using for testing and scanning:
 
 ## Download from dockerhub
 
-    docker pull oupfiz5/tcl-build:latest
-    docker pull oupfiz5/tcl-build:21.07
+    docker pull oupfiz5/alt-s6-builder:22.09
 
 
 <a id="build-from-chiselapp--fossil-"></a>
 
 ## Build from chiselapp (fossil)
 
-    fossil clone https://chiselapp.com/user/oupfiz5/repository/tcl-build tcl-build.fossil
-    mkdir tcl-build
-    cd tcl-build
-    fossil open ../tcl-build.fossil
-    docker build -t oupfiz5/tcl-build .
+    fossil clone https://chiselapp.com/user/oupfiz5/repository/alt-s6-builder alt-s6-builder.fossil
+    mkdir alt-s6-builder
+    cd alt-s6-builder
+    fossil open ../alt-s6-builder.fossil
+    docker build -t oupfiz5/alt-s6-builder:22.09 .
 
 
 <a id="build-from-github"></a>
 
 ## Build from github
 
-    git clone https://github.com/oupfiz5/tcl-build.git
-    cd tcl-build
-    docker build -t oupfiz5/tcl-build .
+    git clone https://github.com/oupfiz5/alt-s6-builder.git
+    cd alt-s6-builder
+    docker build -t oupfiz5/alt-s6-builder:22.09 .
 
 
 <a id="configuration"></a>
@@ -138,7 +137,7 @@ They are using for testing and scanning:
 <tbody>
 <tr>
 <td class="org-left">FOSSIL_VERSION</td>
-<td class="org-left">2.17</td>
+<td class="org-left">2.18</td>
 <td class="org-left">Set upload fossil version</td>
 </tr>
 </tbody>
@@ -160,8 +159,8 @@ They are using for testing and scanning:
     docker build \
            --build-arg BUILD_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ") \
            --build-arg VERSION='22.01' \
-           --build-arg FOSSIL_VERSION='2.17' \
-           -t oupfiz5/tcl-build:22.01 \
+           --build-arg FOSSIL_VERSION='2.18' \
+           -t oupfiz5/alt-s6-builder \
            -f ./Dockerfile \
             .
 
@@ -216,8 +215,8 @@ Set the timezone for the container, defaults to UTC. To set the timezone set the
         -v $PWD/workspaces:/workspaces\
         -v $PWD/builds:/builds \
         --env 'TZ=Europe/Moscow' \
-        --name=tcl-build \
-        oupfiz5/tcl-build:latest
+        --name=alt-s6-builder \
+        oupfiz5/alt-s6:builder:22.09
 
 
 <a id="applications"></a>
@@ -229,7 +228,7 @@ The docker support builds for  the following applications:
 -   tcl
 -   tcllib
 -   rl\_json
--   NaviServer (modules)
+-   NaviServer (plus modules)
 -   tDOM
 -   xotcl
 
@@ -269,7 +268,7 @@ For configuration is using docker environment variable and/or `builds/env-vars.s
 <tbody>
 <tr>
 <td class="org-left">NS_VERSION</td>
-<td class="org-right">4.99.21</td>
+<td class="org-right">4.99.24</td>
 <td class="org-left">Define NaviServer version</td>
 </tr>
 </tbody>
@@ -277,7 +276,7 @@ For configuration is using docker environment variable and/or `builds/env-vars.s
 <tbody>
 <tr>
 <td class="org-left">NS_MODULES_VERSION</td>
-<td class="org-right">4.99.21</td>
+<td class="org-right">4.99.24</td>
 <td class="org-left">Define NaviServer modules version</td>
 </tr>
 </tbody>
@@ -285,7 +284,7 @@ For configuration is using docker environment variable and/or `builds/env-vars.s
 <tbody>
 <tr>
 <td class="org-left">RL_JSON_VERSION</td>
-<td class="org-right">0.11.0</td>
+<td class="org-right">0.11.2</td>
 <td class="org-left">Define <a href="https://github.com/RubyLane/rl_json">RL_JSON</a> version</td>
 </tr>
 </tbody>
@@ -293,7 +292,7 @@ For configuration is using docker environment variable and/or `builds/env-vars.s
 <tbody>
 <tr>
 <td class="org-left">TCL_VERSION</td>
-<td class="org-right">8.6.11</td>
+<td class="org-right">8.6.12</td>
 <td class="org-left">Define tcl version</td>
 </tr>
 </tbody>
@@ -301,7 +300,7 @@ For configuration is using docker environment variable and/or `builds/env-vars.s
 <tbody>
 <tr>
 <td class="org-left">TCLLIB_VERSION</td>
-<td class="org-right">1.20</td>
+<td class="org-right">1.21</td>
 <td class="org-left">Define tcl lib version</td>
 </tr>
 </tbody>
@@ -317,7 +316,7 @@ For configuration is using docker environment variable and/or `builds/env-vars.s
 <tbody>
 <tr>
 <td class="org-left">XOTCL_VERSION</td>
-<td class="org-right">2.3.0</td>
+<td class="org-right">2.4.0</td>
 <td class="org-left">Define xotcl version</td>
 </tr>
 </tbody>
@@ -339,8 +338,8 @@ Run the build container in the background with Docker:
     docker run -itd \
         -v $PWD/workspaces:/workspaces\
         -v $PWD/builds:/builds \
-        --name=tcl-build \
-        oupfiz5/tcl-build:22.01
+        --name=alt-s6-builder \
+        oupfiz5/alt-s6-builder:22.09
 
 
 <a id="build-applications"></a>
@@ -349,13 +348,13 @@ Run the build container in the background with Docker:
 
 Build all program in tcl-build using a `docker exec` and default congratulations:
 
-    docker exec -it tcl-build bash /builds/all-build.sh
+    docker exec -it alt-s6-builder bash /builds/all-build.sh
 
-Build any applications with version customization in tcl-build using `docker exec`. For example install tcl version 8.6.11 is:
+Build any applications with version customization in tcl-build using `docker exec`. For example install tcl version 8.6.12 is:
 
     docker exec -it \
-           -e TCL_VERSION=8.6.11 \
-           tcl-build \
+           -e TCL_VERSION=8.6.12 \
+           alt-s6-builder \
            bash /builds/tcl-build.sh
 
 Modify the source code of any package in the workspaces directory. Then you can use make, cmake, &#x2026; to rebuild the container with the changes.  Use the build container with your favorite IDE.
@@ -389,8 +388,8 @@ For  build and push docker images using  [Github Actions workflow](https://githu
 For debugging and maintenance purposes you may want access the output log. If you are using Docker version 1.3.0 or higher you can access a running containers shell by starting bash using docker interactive:
 
     docker run -it --rm \
-           --name=tcl-build \
-           oupfiz5/tcl-build:latest \
+           --name=alt-s6-builder \
+           oupfiz5/alt-s6:builder \
            /bin/bash
 
 
@@ -400,4 +399,4 @@ For debugging and maintenance purposes you may want access the output log. If yo
 
 For debugging and maintenance purposes you may want access the containers shell. If you are usingDocker version 1.3.0 or higher you can access a running containers shell by starting bash using docker exec:
 
-    docker exec -it tcl-build /bin/bash
+    docker exec -it alt-s6-builder /bin/bash

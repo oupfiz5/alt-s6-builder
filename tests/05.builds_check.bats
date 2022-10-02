@@ -13,7 +13,7 @@ setup() {
     assert_success
 }
 
-@test "Run tcl-build container" {
+@test "Run builder container" {
     mkdir -p "${WORKSPACES}"
     run docker run -itd \
            -v ${WORKSPACES}:/workspaces \

@@ -51,7 +51,7 @@ ARG \
   COPY VERSIONS /VERSIONS
 
   # * Add
-  ADD https://www.fossil-scm.org/home/uv/fossil-linux-x64-2.18.tar.gz /tmp/fossil-linux.tar.gz
+  ADD https://www.fossil-scm.org/home/uv/fossil-linux-x64-2.19.tar.gz /tmp/fossil-linux.tar.gz
 
   # * Run
   # hadolint ignore=DL3008,DL3003,DL3015
@@ -87,20 +87,21 @@ ARG \
               libminizip-devel \
               openssl \
               pkg-config \
-              # postgresql-devel \
+              postgresql14 \
               python3-module-pip \
               python3-module-virtualenv \
               swig \
               tzdata \
               wget \
               zlib-devel \
-      && pip3 install --no-cache-dir "cmake==3.22.4" \
+      && pip3 install --no-cache-dir "cmake==3.24.1.1" \
       && localedef -c -i en_US -f UTF-8 en_US.UTF-8 \
       && echo LANG="en_US.UTF-8" >> /etc/sysconfig/i18n \
       && echo LC_ALL="en_US.UTF-8" >> /etc/sysconfig/i18n \
       && cd /tmp \
       && tar xzf /tmp/fossil-linux.tar.gz -C /usr/bin \
       && rm /tmp/fossil-linux.tar.gz \
+      && rm -r /usr/share/man/* \
       && apt-get clean \
       && rm -rf /var/lib/apt/lists  \
             /var/cache/apt/archives/*.rpm  \

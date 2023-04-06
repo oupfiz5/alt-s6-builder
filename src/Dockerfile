@@ -3,6 +3,7 @@
   # * Arguments
   ARG \
         BUILD_DATE="${BUILD_DATE}" \
+        CMAKE_VERSION="${CMAKE_VERSION}" \
         FOSSIL_VERSION="${FOSSIL_VERSION}" \
         BASE_IMAGE_NAME="${BASE_IMAGE_NAME}" \
         BASE_IMAGE_REPOSITORY="${UBUNTU_IMAGE_REPOSITORY}" \
@@ -21,6 +22,7 @@
     # ** Environments
     ENV \
         FOSSIL_VERSION=${FOSSIL_VERSION} \
+        CMAKE_VERSION="${CMAKE_VERSION}" \
         NS_VERSION=${NS_VERSION} \
         NS_MODULES_VERSION=${NS_MODULES_VERSION} \
         RL_JSON_VERSION=${RL_JSON_VERSION} \
@@ -51,7 +53,7 @@
     COPY VERSIONS /VERSIONS
 
     # * Add
-    ADD https://www.fossil-scm.org/home/uv/fossil-linux-x64-2.19.tar.gz /tmp/fossil-linux.tar.gz
+    ADD https://www.fossil-scm.org/home/uv/fossil-linux-x64-2.21.tar.gz /tmp/fossil-linux.tar.gz
 
     # * Run
     # hadolint ignore=DL3008,DL3003,DL3015
@@ -98,7 +100,7 @@
                 tzdata \
                 wget \
                 zlib-devel \
-        && pip3 install --no-cache-dir "cmake==3.24.1.1" \
+        && pip3 install --no-cache-dir "cmake==3.26.1" \
         && localedef -c -i en_US -f UTF-8 en_US.UTF-8 \
         && echo LANG="en_US.UTF-8" >> /etc/sysconfig/i18n \
         && echo LC_ALL="en_US.UTF-8" >> /etc/sysconfig/i18n \

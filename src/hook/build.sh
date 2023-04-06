@@ -10,7 +10,7 @@
          --build-arg BASE_IMAGE_NAME="${BASE_IMAGE_NAME}" \
          --build-arg BASE_IMAGE_TAG="${BASE_IMAGE_TAG}" \
          --build-arg BUILD_DATE="$(date -u +"%Y-%m-%dT%H:%M:%SZ")" \
-         --build-arg FOSSIL_VERSION="${FOSSIL_VERSION:-2.18}" \
+         --build-arg FOSSIL_VERSION="${FOSSIL_VERSION}" \
          -t "${IMAGE}" \
          -f ../"${DOCKERFILE}" \
           ../.

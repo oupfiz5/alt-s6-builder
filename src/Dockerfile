@@ -61,21 +61,26 @@ ARG \
               apache2 \
               autoconf_2.60 \
               automake_1.16 \
+              bison \
+              boost-devel \
+              cpp \
               curl \
               gcc \
+              gcc-c++ \
               gdb \
               git \
-              gnupg2 \
               glibc-i18ndata \
-              boost-devel \
+              gnupg2 \
               libbsd-devel \
               libcurl-devel \
               libgd3-devel \
               libgeos-devel \
               libmemcached-devel \
+              libminizip-devel \
               libpq5-devel \
               libproj-devel \
               libreadline-devel \
+              libsqlite3-devel \
               libssl-devel \
               libtool \
               libuv-devel \
@@ -84,7 +89,6 @@ ARG \
               libyajl-devel \
               lsb-release \
               make \
-              libminizip-devel \
               openssl \
               pkg-config \
               postgresql14 \

@@ -1,3 +1,4 @@
+
 # Table of Contents
 
 -   [About](#about)
@@ -76,7 +77,7 @@ They are using for testing and scanning:
 
 ## Download from dockerhub
 
-    docker pull oupfiz5/alt-s6-builder:22.09
+    docker pull oupfiz5/alt-s6-builder:23.04
 
 
 <a id="build-from-chiselapp--fossil-"></a>
@@ -87,7 +88,7 @@ They are using for testing and scanning:
     mkdir alt-s6-builder
     cd alt-s6-builder
     fossil open ../alt-s6-builder.fossil
-    docker build -t oupfiz5/alt-s6-builder:22.09 .
+    docker build -t oupfiz5/alt-s6-builder:23.04 .
 
 
 <a id="build-from-github"></a>
@@ -96,7 +97,7 @@ They are using for testing and scanning:
 
     git clone https://github.com/oupfiz5/alt-s6-builder.git
     cd alt-s6-builder
-    docker build -t oupfiz5/alt-s6-builder:22.09 .
+    docker build -t oupfiz5/alt-s6-builder:23.04 .
 
 
 <a id="configuration"></a>
@@ -137,7 +138,7 @@ They are using for testing and scanning:
 <tbody>
 <tr>
 <td class="org-left">FOSSIL_VERSION</td>
-<td class="org-left">2.18</td>
+<td class="org-left">2.21</td>
 <td class="org-left">Set upload fossil version</td>
 </tr>
 </tbody>
@@ -158,8 +159,8 @@ They are using for testing and scanning:
 
     docker build \
            --build-arg BUILD_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ") \
-           --build-arg VERSION='22.01' \
-           --build-arg FOSSIL_VERSION='2.18' \
+           --build-arg VERSION='23.04' \
+           --build-arg FOSSIL_VERSION='2.21' \
            -t oupfiz5/alt-s6-builder \
            -f ./Dockerfile \
             .
@@ -216,7 +217,7 @@ Set the timezone for the container, defaults to UTC. To set the timezone set the
         -v $PWD/builds:/builds \
         --env 'TZ=Europe/Moscow' \
         --name=alt-s6-builder \
-        oupfiz5/alt-s6:builder:22.09
+        oupfiz5/alt-s6:builder:23.04
 
 
 <a id="applications"></a>
@@ -339,7 +340,7 @@ Run the build container in the background with Docker:
         -v $PWD/workspaces:/workspaces\
         -v $PWD/builds:/builds \
         --name=alt-s6-builder \
-        oupfiz5/alt-s6-builder:22.09
+        oupfiz5/alt-s6-builder:23.04
 
 
 <a id="build-applications"></a>
@@ -400,3 +401,4 @@ For debugging and maintenance purposes you may want access the output log. If yo
 For debugging and maintenance purposes you may want access the containers shell. If you are usingDocker version 1.3.0 or higher you can access a running containers shell by starting bash using docker exec:
 
     docker exec -it alt-s6-builder /bin/bash
+

@@ -1,7 +1,7 @@
-.git/
-.github-mirroring/*
-docs/
-org/.configuration/*
-tests/.bats-battery/*/.git
-tests/.bats-battery/*/.github
-workspaces/
+  .git/
+  .github-mirroring/*
+  docs/
+  org/.configuration/*
+  tests/.bats-battery/*/.git
+  tests/.bats-battery/*/.github
+  workspaces/

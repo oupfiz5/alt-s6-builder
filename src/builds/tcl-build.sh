@@ -14,11 +14,6 @@
       tar xfz "${package_directory}"-src.tar.gz
   fi
 
-  if [ ! -f /workspaces/tcl/minizip ]; then
-      # tcl8.7 assumes minizip in ../minizip, will cleanup when tcl8.7 releases
-      cp /usr/bin/minizip /workspaces/"${package_directory}"/unix
-  fi
-
   mkdir -p /workspaces/logs
   : > /workspaces/logs/"${package_directory}".log
   echo "Running the autoconf configure in /workspaces/tcl/unix"

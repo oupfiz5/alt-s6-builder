@@ -9,11 +9,11 @@
 build_setup
 
 # * Get from git repository
-package_directory=rl_json-"${RL_JSON_VERSION}"
-repo="https://github.com/RubyLane/rl_json.git"
+package_directory="rl_json-${RL_JSON_VERSION}"
+repo='https://github.com/RubyLane/rl_json.git'
 extra="--recurse-submodules --shallow-submodules --depth 1 --branch ${RL_JSON_VERSION}"
 
-build_git_clone "$package_directory" "$repo" "$extra"
+build_git_clone "${package_directory}" "${repo}" "${extra}"
 
 # Because https://github.com/RubyLane/rl_json/issues/41#
 #if [ ! -d /workspaces/"${package_directory}" ]; then

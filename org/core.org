@@ -713,11 +713,16 @@ build_git_clone () {
     local name="$1"
     local repo="$2"
     local extra="$3"
+
     if [ ! -d "/workspaces/$name" ]; then
         echo "No git clone of $name found".
         cd /workspaces || exit 1
-        echo git clone "$extra" "$repo"
-        git clone "${extra}" "$repo" "$name"
+        echo "pwd=$(pwd)"
+        echo "Name=${name}"
+        echo "Repo=${repo}"
+        echo "Extra=${extra}"
+        echo "Command is: git clone ${extra} ${repo} ${name}"
+        $(git clone $extra $repo $name)
     fi
 }
 
@@ -763,7 +768,7 @@ export PREFIX="${PREFIX:-/usr}"
 # export XOTCL_VERSION="${XOTCL_VERSION:-2.3.0}"
 
 # * Options
-export WGET_OPTIONS="${WGET_OPTIONS:-"--retry-connrefused --waitretry=1 --read-timeout=20 --timeout=15 -t 10"}"
+export WGET_OPTIONS="${WGET_OPTIONS:- --retry-connrefused --waitretry=1 --read-timeout=20 --timeout=15 -t 10 }"
 
 # * NaviServer
 # Using for NaviServer
@@ -1158,11 +1163,11 @@ fi
 build_setup
 
 # * Get from git repository
-package_directory=rl_json-"${RL_JSON_VERSION}"
-repo="https://github.com/RubyLane/rl_json.git"
+package_directory="rl_json-${RL_JSON_VERSION}"
+repo='https://github.com/RubyLane/rl_json.git'
 extra="--recurse-submodules --shallow-submodules --depth 1 --branch ${RL_JSON_VERSION}"
 
-build_git_clone "$package_directory" "$repo" "$extra"
+build_git_clone "${package_directory}" "${repo}" "${extra}"
 
 # Because https://github.com/RubyLane/rl_json/issues/41#
 #if [ ! -d /workspaces/"${package_directory}" ]; then

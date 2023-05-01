@@ -12,7 +12,7 @@ export PREFIX="${PREFIX:-/usr}"
 # export XOTCL_VERSION="${XOTCL_VERSION:-2.3.0}"
 
 # * Options
-export WGET_OPTIONS="${WGET_OPTIONS:-"--retry-connrefused --waitretry=1 --read-timeout=20 --timeout=15 -t 10"}"
+export WGET_OPTIONS="${WGET_OPTIONS:- --retry-connrefused --waitretry=1 --read-timeout=20 --timeout=15 -t 10 }"
 
 # * NaviServer
 # Using for NaviServer

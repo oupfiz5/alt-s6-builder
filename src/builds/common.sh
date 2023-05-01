@@ -26,7 +26,7 @@ build_git_clone () {
         echo "Repo=${repo}"
         echo "Extra=${extra}"
         echo "Command is: git clone ${extra} ${repo} ${name}"
-        $(git clone $extra $repo $name)
+        "$(git clone $extra $repo $name)"
     fi
 }
 

@@ -83,7 +83,7 @@ They are using for testing and scanning:
 :CUSTOM_ID: download-from-dockerhub
 :END:
 #+begin_example
-docker pull oupfiz5/alt-s6-builder:23.04
+docker pull oupfiz5/alt-s6-builder:23.05
 #+end_example
 
 ** Build from chiselapp (fossil)
@@ -95,7 +95,7 @@ fossil clone https://chiselapp.com/user/oupfiz5/repository/alt-s6-builder alt-s6
 mkdir alt-s6-builder
 cd alt-s6-builder
 fossil open ../alt-s6-builder.fossil
-docker build -t oupfiz5/alt-s6-builder:23.04 .
+docker build -t oupfiz5/alt-s6-builder:23.05 .
 #+end_example
 
 ** Build from github
@@ -105,7 +105,7 @@ docker build -t oupfiz5/alt-s6-builder:23.04 .
 #+begin_example
 git clone https://github.com/oupfiz5/alt-s6-builder.git
 cd alt-s6-builder
-docker build -t oupfiz5/alt-s6-builder:23.04 .
+docker build -t oupfiz5/alt-s6-builder:23.05 .
 #+end_example
 
 ** Configuration
@@ -133,7 +133,7 @@ docker build -t oupfiz5/alt-s6-builder:23.04 .
 #+begin_example
   docker build \
          --build-arg BUILD_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ") \
-         --build-arg VERSION='23.04' \
+         --build-arg VERSION='23.05' \
          --build-arg FOSSIL_VERSION='2.21' \
          -t oupfiz5/alt-s6-builder \
          -f ./Dockerfile \
@@ -167,7 +167,7 @@ docker run -itd \
     -v $PWD/builds:/builds \
     --env 'TZ=Europe/Moscow' \
     --name=alt-s6-builder \
-    oupfiz5/alt-s6:builder:23.04
+    oupfiz5/alt-s6:builder:23.05
 #+end_example
 
 * Applications
@@ -223,7 +223,7 @@ docker run -itd \
     -v $PWD/workspaces:/workspaces\
     -v $PWD/builds:/builds \
     --name=alt-s6-builder \
-    oupfiz5/alt-s6-builder:23.04
+    oupfiz5/alt-s6-builder:23.05
 #+end_example
 
 ** Build applications
@@ -238,7 +238,7 @@ docker exec -it alt-s6-builder bash /builds/all-build.sh
 Build any applications with version customization in tcl-build using =docker exec=. For example install tcl version 8.6.12 is:
 #+begin_src sh :tangle no
   docker exec -it \
-         -e TCL_VERSION=8.6.12 \
+         -e TCL_VERSION=8.6.13 \
          alt-s6-builder \
          bash /builds/tcl-build.sh
 #+end_src
@@ -293,25 +293,25 @@ docker exec -it alt-s6-builder /bin/bash
 :CUSTOM_ID: versions
 :END:
 #+begin_src sh :shebang ""
-  # * Versions
-  CMAKE_VERSION="${CMAKE_VERSION:-3.26.3}"
-  FOSSIL_VERSION="${FOSSIL_VERSION:-2.21}"
-  NS_VERSION="${NS_VERSION:-4.99.24}"
-  NS_MODULES_VERSION="${NS_MODULES_VERSION:-4.99.24}"
-  RL_JSON_VERSION="${RL_JSON_VERSION:-0.11.2}"
-  TDOM_VERSION="${TDOM_VERSION:-0.9.1}"
-  THREAD_VERSION="${THREAD_VERSION:-2.8.7}"
-  TCL_VERSION="${TCL_VERSION:-8.6.12}"
-  TCLLIB_VERSION="${TCLLIB_VERSION:-1.21}"
-  XOTCL_VERSION="${XOTCL_VERSION:-2.4.0}"
+# * Versions
+CMAKE_VERSION="${CMAKE_VERSION:-3.26.3}"
+FOSSIL_VERSION="${FOSSIL_VERSION:-2.21}"
+NS_VERSION="${NS_VERSION:-4.99.24}"
+NS_MODULES_VERSION="${NS_MODULES_VERSION:-4.99.24}"
+RL_JSON_VERSION="${RL_JSON_VERSION:-0.12.2}"
+TDOM_VERSION="${TDOM_VERSION:-0.9.1}"
+THREAD_VERSION="${THREAD_VERSION:-2.8.8}"
+TCL_VERSION="${TCL_VERSION:-8.6.13}"
+TCLLIB_VERSION="${TCLLIB_VERSION:-1.20}"
+XOTCL_VERSION="${XOTCL_VERSION:-2.4.0}"
 
-  CONTAINER_NAME="${CONTAINER_NAME:-alt-s6-builder}"
-  IMAGE_REPOSITORY="${IMAGE_REPOSITORY:-oupfiz5}"
-  IMAGE_NAME="${IMAGE_NAME:-alt-s6-builder}"
-  IMAGE_TAG="${IMAGE_TAG:-23.04}"
-  BASE_IMAGE_REPOSITORY="${BASE_IMAGE_REPOSITORY:-oupfiz5}"
-  BASE_IMAGE_NAME="${BASE_IMAGE_NAME:-alt-s6}"
-  BASE_IMAGE_TAG="${BASE_IMAGE_TAG:-sisyphus-3.1.4.2}"
+CONTAINER_NAME="${CONTAINER_NAME:-alt-s6-builder}"
+IMAGE_REPOSITORY="${IMAGE_REPOSITORY:-oupfiz5}"
+IMAGE_NAME="${IMAGE_NAME:-alt-s6-builder}"
+IMAGE_TAG="${IMAGE_TAG:-23.05}"
+BASE_IMAGE_REPOSITORY="${BASE_IMAGE_REPOSITORY:-oupfiz5}"
+BASE_IMAGE_NAME="${BASE_IMAGE_NAME:-alt-s6}"
+BASE_IMAGE_TAG="${BASE_IMAGE_TAG:-sisyphus-3.1.4.2}"
 #+end_src
 ** ../.fossil-settings/crlf-glob
 :PROPERTIES:
@@ -509,123 +509,123 @@ docker exec -it alt-s6-builder /bin/bash
 :CUSTOM_ID: dockerfile
 :END:
 #+begin_src sh :shebang ""
-  # syntax=docker/dockerfile:1.4
+# syntax=docker/dockerfile:1.4
 
-  # * Arguments
-  ARG \
-        BUILD_DATE="${BUILD_DATE}" \
-        CMAKE_VERSION="${CMAKE_VERSION}" \
-        FOSSIL_VERSION="${FOSSIL_VERSION}" \
-        BASE_IMAGE_NAME="${BASE_IMAGE_NAME}" \
-        BASE_IMAGE_REPOSITORY="${UBUNTU_IMAGE_REPOSITORY}" \
-        BASE_IMAGE_TAG="${UBUNTU_IMAGE_TAG}" \
-        NS_VERSION="${NS_VERSION}" \
-        NS_MODULES_VERSION="${NS_MODULES_VERSION}" \
-        RL_JSON_VERSION="${RL_JSON_VERSION}" \
-        TCL_VERSION="${TCL_VERSION}" \
-        TCLLIB_VERSION="${TCLLIB_VERSION}" \
-        THREAD_VERSION="${THREAD_VERSION}" \
-        XOTCL_VERSION="${XOTCL_VERSION}" \
-        TDOM_VERSION="${TDOM_VERSION}"
+# * Arguments
+ARG \
+    BUILD_DATE="${BUILD_DATE}" \
+    CMAKE_VERSION="${CMAKE_VERSION}" \
+    FOSSIL_VERSION="${FOSSIL_VERSION}" \
+    BASE_IMAGE_NAME="${BASE_IMAGE_NAME}" \
+    BASE_IMAGE_REPOSITORY="${UBUNTU_IMAGE_REPOSITORY}" \
+    BASE_IMAGE_TAG="${UBUNTU_IMAGE_TAG}" \
+    NS_VERSION="${NS_VERSION}" \
+    NS_MODULES_VERSION="${NS_MODULES_VERSION}" \
+    RL_JSON_VERSION="${RL_JSON_VERSION}" \
+    TCL_VERSION="${TCL_VERSION}" \
+    TCLLIB_VERSION="${TCLLIB_VERSION}" \
+    THREAD_VERSION="${THREAD_VERSION}" \
+    XOTCL_VERSION="${XOTCL_VERSION}" \
+    TDOM_VERSION="${TDOM_VERSION}"
 
-    FROM ${BASE_IMAGE_REPOSITORY}/${BASE_IMAGE_NAME}:${BASE_IMAGE_TAG}
+FROM ${BASE_IMAGE_REPOSITORY}/${BASE_IMAGE_NAME}:${BASE_IMAGE_TAG}
 
-    # ** Environments
-    ENV \
-        FOSSIL_VERSION=${FOSSIL_VERSION} \
-        CMAKE_VERSION="${CMAKE_VERSION}" \
-        NS_VERSION=${NS_VERSION} \
-        NS_MODULES_VERSION=${NS_MODULES_VERSION} \
-        RL_JSON_VERSION=${RL_JSON_VERSION} \
-        TCL_VERSION=${TCL_VERSION} \
-        TCLLIB_VERSION=${TCLLIB_VERSION} \
-        THREAD_VERSION=${THREAD_VERSION} \
-        XOTCL_VERSION=${XOTCL_VERSION} \
-        TDOM_VERSION=${TDOM_VERSION}
+# ** Environments
+ENV \
+    FOSSIL_VERSION=${FOSSIL_VERSION} \
+    CMAKE_VERSION="${CMAKE_VERSION}" \
+    NS_VERSION=${NS_VERSION} \
+    NS_MODULES_VERSION=${NS_MODULES_VERSION} \
+    RL_JSON_VERSION=${RL_JSON_VERSION} \
+    TCL_VERSION=${TCL_VERSION} \
+    TCLLIB_VERSION=${TCLLIB_VERSION} \
+    THREAD_VERSION=${THREAD_VERSION} \
+    XOTCL_VERSION=${XOTCL_VERSION} \
+    TDOM_VERSION=${TDOM_VERSION}
 
-    # * Labels
-    LABEL \
-        maintainer="Oupfiz V <oupfiz5@yandex.ru>" \
-        org.opencontainers.image.created="${BUILD_DATE}" \
-        org.opencontainers.image.authors="Oupfiz V (Five)" \ org.opencontainers.image.url="https://chiselapp.com/user/oupfiz5/repository/alt-s6-builder/home" \ org.opencontainers.image.documentation="https://chiselapp.com/user/oupfiz5/repository/alt-s6-builder/wiki" \ org.opencontainers.image.source="https://chiselapp.com/user/oupfiz5/repository/alt-s6-builder/brlist" \
-        org.opencontainers.image.version="0.0.2d" \
-        org.opencontainers.image.revision="" \
-        org.opencontainers.image.vendor="" \
-        org.opencontainers.image.licenses="" \
-        org.opencontainers.image.ref.name="" \
-        org.opencontainers.image.title="AltLinux image for build tcl packages" \
-        org.opencontainers.image.description="AltLinux image for build tcl packages" \
-        org.opencontainers.alt-s6-builder.version="${VERSION}"
+# * Labels
+LABEL \
+    maintainer="Oupfiz V <oupfiz5@yandex.ru>" \
+    org.opencontainers.image.created="${BUILD_DATE}" \
+    org.opencontainers.image.authors="Oupfiz V (Five)" \ org.opencontainers.image.url="https://chiselapp.com/user/oupfiz5/repository/alt-s6-builder/home" \ org.opencontainers.image.documentation="https://chiselapp.com/user/oupfiz5/repository/alt-s6-builder/wiki" \ org.opencontainers.image.source="https://chiselapp.com/user/oupfiz5/repository/alt-s6-builder/brlist" \
+    org.opencontainers.image.version="0.0.2d" \
+    org.opencontainers.image.revision="" \
+    org.opencontainers.image.vendor="" \
+    org.opencontainers.image.licenses="" \
+    org.opencontainers.image.ref.name="" \
+    org.opencontainers.image.title="AltLinux image for build tcl packages" \
+    org.opencontainers.image.description="AltLinux image for build tcl packages" \
+    org.opencontainers.alt-s6-builder.version="${VERSION}"
 
-    # * Environment
+# * Environment
 
-    # * Copy scripts
-    COPY builds /builds
-    COPY VERSIONS /VERSIONS
+# * Copy scripts
+COPY builds /builds
+COPY VERSIONS /VERSIONS
 
-    # * Add
-    ADD https://www.fossil-scm.org/home/uv/fossil-linux-x64-2.21.tar.gz /tmp/fossil-linux.tar.gz
+# * Add
+ADD https://www.fossil-scm.org/home/uv/fossil-linux-x64-2.21.tar.gz /tmp/fossil-linux.tar.gz
 
-    # * Run
-    # hadolint ignore=DL3008,DL3003,DL3015
-    RUN mkdir /var/lib/apt/lists/partial && \
-        apt-get update && \
-        apt-get install -y \
-                apache2 \
-                autoconf_2.60 \
-                automake_1.16 \
-                bison \
-                boost-devel \
-                cpp \
-                curl \
-                gcc \
-                gcc-c++ \
-                gdb \
-                git \
-                glibc-i18ndata \
-                gnupg2 \
-                libbsd-devel \
-                libcurl-devel \
-                libgd3-devel \
-                libgeos-devel \
-                libmemcached-devel \
-                libminizip-devel \
-                libpq5-devel \
-                libproj-devel \
-                libreadline-devel \
-                libsqlite3-devel \
-                libssl-devel \
-                libtool \
-                libuv-devel \
-                libxml2-devel \
-                libxslt-devel \
-                libyajl-devel \
-                lsb-release \
-                make \
-                openssl \
-                pkg-config \
-                postgresql14 \
-                python3-module-pip \
-                python3-module-virtualenv \
-                swig \
-                tzdata \
-                wget \
-                zlib-devel \
-        && pip3 install --no-cache-dir "cmake==3.26.1" \
-        && localedef -c -i en_US -f UTF-8 en_US.UTF-8 \
-        && echo LANG="en_US.UTF-8" >> /etc/sysconfig/i18n \
-        && echo LC_ALL="en_US.UTF-8" >> /etc/sysconfig/i18n \
-        && cd /tmp \
-        && tar xzf /tmp/fossil-linux.tar.gz -C /usr/bin \
-        && rm /tmp/fossil-linux.tar.gz \
-        && rm -r /usr/share/man/* \
-        && apt-get clean \
-        && rm -rf /var/lib/apt/lists  \
-              /var/cache/apt/archives/*.rpm  \
-              /var/cache/apt/*.bin
+# * Run
+# hadolint ignore=DL3008,DL3003,DL3015
+RUN mkdir /var/lib/apt/lists/partial && \
+    apt-get update && \
+    apt-get install -y \
+    apache2 \
+    autoconf_2.60 \
+    automake_1.16 \
+    bison \
+    boost-devel \
+    cpp \
+    curl \
+    gcc \
+    gcc-c++ \
+    gdb \
+    git \
+    glibc-i18ndata \
+    gnupg2 \
+    libbsd-devel \
+    libcurl-devel \
+    libgd3-devel \
+    libgeos-devel \
+    libmemcached-devel \
+    libminizip-devel \
+    libpq5-devel \
+    libproj-devel \
+    libreadline-devel \
+    libsqlite3-devel \
+    libssl-devel \
+    libtool \
+    libuv-devel \
+    libxml2-devel \
+    libxslt-devel \
+    libyajl-devel \
+    lsb-release \
+    make \
+    openssl \
+    pkg-config \
+    postgresql14 \
+    python3-module-pip \
+    python3-module-virtualenv \
+    swig \
+    tzdata \
+    wget \
+    zlib-devel \
+    && pip3 install --no-cache-dir "cmake==3.26.1" \
+    && localedef -c -i en_US -f UTF-8 en_US.UTF-8 \
+    && echo LANG="en_US.UTF-8" >> /etc/sysconfig/i18n \
+    && echo LC_ALL="en_US.UTF-8" >> /etc/sysconfig/i18n \
+    && cd /tmp \
+    && tar xzf /tmp/fossil-linux.tar.gz -C /usr/bin \
+    && rm /tmp/fossil-linux.tar.gz \
+    && rm -r /usr/share/man/* \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists  \
+    /var/cache/apt/archives/*.rpm  \
+    /var/cache/apt/*.bin
 
-    # * Entrypoint
-    ENTRYPOINT ["/init"]
+# * Entrypoint
+ENTRYPOINT ["/init"]
 #+end_src
 
 ** hook/build.sh :code:
@@ -694,84 +694,84 @@ docker exec -it alt-s6-builder /bin/bash
 :CUSTOM_ID: builds-common-sh
 :END:
 #+begin_src sh :shebang ""
-  # shellcheck shell=bash
-  # Helper functions for build scripts
+# shellcheck shell=bash
+# Helper functions for build scripts
 
-  # export TCLSH="tclsh8.6"
-  export TCLLIBPATH=/usr/lib/tcl8.6/library
-  # export TCL_CONFIG="/workspaces/tcl/unix/tclConfig.sh"
+# export TCLSH="tclsh8.6"
+export TCLLIBPATH=/usr/lib/tcl8.6/library
+# export TCL_CONFIG="/workspaces/tcl/unix/tclConfig.sh"
 
-  build_setup () {
-      if [ ! -d /workspaces ]; then
-          echo "Missing /workspaces directory."
-          echo "Be sure to docker run -v ${WORK_DIR_PATH}:/workspaces ..."
-          exit 1
-      fi
-  }
+build_setup () {
+    if [ ! -d /workspaces ]; then
+        echo "Missing /workspaces directory."
+        echo "Be sure to docker run -v ${WORK_DIR_PATH}:/workspaces ..."
+        exit 1
+    fi
+}
 
-  build_git_clone () {
-      local name="$1"
-      local repo="$2"
-      local extra="$3"
-      if [ ! -d "/workspaces/$name" ]; then
-          echo "No git clone of $name found".
-          cd /workspaces || exit 1
-          echo git clone "$extra" "$repo"
-          git clone "${extra}" "$repo"
-      fi
-  }
+build_git_clone () {
+    local name="$1"
+    local repo="$2"
+    local extra="$3"
+    if [ ! -d "/workspaces/$name" ]; then
+        echo "No git clone of $name found".
+        cd /workspaces || exit 1
+        echo git clone "$extra" "$repo"
+        git clone "${extra}" "$repo" "$name"
+    fi
+}
 
 
-  build_cleanup () {
-      # fix any permissions messed up by the Docker user id
-      # allow edits to the source outside of the container
-      find "$(readlink -f /workspaces)" -type d -print0 | xargs -0 chmod go+rwx
-      find "$(readlink -f /workspaces)" -type f -print0 | xargs -0 chmod go+rw
-  }
+build_cleanup () {
+    # fix any permissions messed up by the Docker user id
+    # allow edits to the source outside of the container
+    find "$(readlink -f /workspaces)" -type d -print0 | xargs -0 chmod go+rwx
+    find "$(readlink -f /workspaces)" -type f -print0 | xargs -0 chmod go+rw
+}
 #+end_src
 ** builds/all-build.sh :code:
 :PROPERTIES:
 :CUSTOM_ID: builds-all-build-sh
 :END:
 #+begin_src sh
-    sh /builds/tcl-build.sh
-    sh /builds/tcllib-build.sh
-    sh /builds/ns-build.sh
-    sh /builds/ns-modules-build-nsdbpg.sh
-    sh /builds/ns-modules-build-nsstats.sh
-    sh /builds/ns-modules-build-nsconf.sh
-    sh /builds/thread-build.sh
-    sh /builds/xotcl-build.sh
-    sh /builds/tdom-build.sh
-    sh /builds/rl_json-build.sh
+sh /builds/tcl-build.sh
+sh /builds/tcllib-build.sh
+sh /builds/ns-build.sh
+sh /builds/ns-modules-build-nsdbpg.sh
+sh /builds/ns-modules-build-nsstats.sh
+sh /builds/ns-modules-build-nsconf.sh
+sh /builds/thread-build.sh
+sh /builds/xotcl-build.sh
+sh /builds/tdom-build.sh
+sh /builds/rl_json-build.sh
 #+end_src
 ** builds/env-vars.sh :code:
 :PROPERTIES:
 :CUSTOM_ID: builds-env-vars-sh
 :END:
 #+begin_src sh
-  export PREFIX="${PREFIX:-/usr}"
+export PREFIX="${PREFIX:-/usr}"
 
-  # * Versions
-  # export NS_VERSION="${NS_VERSION:-4.99.22}"
-  # export NS_MODULES_VERSION="${NS_MODULES_VERSION:-4.99.22}"
-  # export RL_JSON_VERSION="${RL_JSON_VERSION:-0.11.1}"
-  # export TDOM_VERSION="${TDOM_VERSION:-0.9.1}"
-  # export THREAD_VERSION="${THREAD_VERSION:-2.8.6}"
-  # export TCL_VERSION="${TCL_VERSION:-8.6.11}"
-  # export TCLLIB_VERSION="${TCLLIB_VERSION:-1.20}"
-  # export XOTCL_VERSION="${XOTCL_VERSION:-2.3.0}"
+# * Versions
+# export NS_VERSION="${NS_VERSION:-4.99.22}"
+# export NS_MODULES_VERSION="${NS_MODULES_VERSION:-4.99.22}"
+# export RL_JSON_VERSION="${RL_JSON_VERSION:-0.11.1}"
+# export TDOM_VERSION="${TDOM_VERSION:-0.9.1}"
+# export THREAD_VERSION="${THREAD_VERSION:-2.8.6}"
+# export TCL_VERSION="${TCL_VERSION:-8.6.11}"
+# export TCLLIB_VERSION="${TCLLIB_VERSION:-1.20}"
+# export XOTCL_VERSION="${XOTCL_VERSION:-2.3.0}"
 
-  # # * Options
-  export WGET_OPTIONS="${WGET_OPTIONS:-""}"
+# * Options
+export WGET_OPTIONS="${WGET_OPTIONS:-""}"
 
-  # * NaviServer
-  # Using for NaviServer
-  # the pg_* variables should be the path leading to the include and
-  # library file of postgres to be used in this build.  In particular,
-  # "libpq-fe.h" and "libpq.so" are typically needed.
-  export PG_INCL="/usr/include/postgresql"
-  export PG_LIB="/usr/lib"
+# * NaviServer
+# Using for NaviServer
+# the pg_* variables should be the path leading to the include and
+# library file of postgres to be used in this build.  In particular,
+# "libpq-fe.h" and "libpq.so" are typically needed.
+export PG_INCL="/usr/include/postgresql"
+export PG_LIB="/usr/lib"
 #+end_src
 ** builds/ns-build.sh :code:
 :PROPERTIES:
@@ -937,11 +937,6 @@ docker exec -it alt-s6-builder /bin/bash
       tar xfz "${package_directory}"-src.tar.gz
   fi
 
-  if [ ! -f /workspaces/tcl/minizip ]; then
-      # tcl8.7 assumes minizip in ../minizip, will cleanup when tcl8.7 releases
-      cp /usr/bin/minizip /workspaces/"${package_directory}"/unix
-  fi
-
   mkdir -p /workspaces/logs
   : > /workspaces/logs/"${package_directory}".log
   echo "Running the autoconf configure in /workspaces/tcl/unix"
@@ -966,8 +961,10 @@ docker exec -it alt-s6-builder /bin/bash
 :END:
 #+begin_src sh
 if [ ! -f tcl"${TCL_VERSION}"-src.tar.gz ] ; then
-    echo wget "${WGET_OPTIONS}" https://downloads.sourceforge.net/sourceforge/tcl/tcl"${TCL_VERSION}"-src.tar.gz
-    wget "${WGET_OPTIONS}" https://downloads.sourceforge.net/sourceforge/tcl/tcl"${TCL_VERSION}"-src.tar.gz
+    echo wget "${WGET_OPTIONS}" https://downloads.sourceforge.net/sourceforge/tcl/tcl"${TCL_VERSION}"-src.tar.gz 2>&1
+    wget "${WGET_OPTIONS}" https://downloads.sourceforge.net/sourceforge/tcl/tcl"${TCL_VERSION}"-src.tar.gz 2>&1
+else
+    echo "File tcl"${TCL_VERSION}"-src.tar.gz exist. Skip download." 2>&1
 fi
 #+end_src
 
@@ -1008,9 +1005,11 @@ fi
 :CUSTOM_ID: builds-tcllib-download-sh
 :END:
 #+begin_src sh
-  if [ ! -f tcllib-"${TCLLIB_VERSION}".tar.bz2 ] ; then
-      wget "${WGET_OPTIONS}" https://downloads.sourceforge.net/sourceforge/tcllib/tcllib-"${TCLLIB_VERSION}".tar.bz2
-  fi
+if [ ! -f tcllib-"${TCLLIB_VERSION}".tar.bz2 ] ; then
+    wget "${WGET_OPTIONS}" https://downloads.sourceforge.net/sourceforge/tcllib/tcllib-"${TCLLIB_VERSION}".tar.bz2
+else
+    echo "tcllib-"${TCLLIB_VERSION}".tar.bz2 exist. Skip download." 2>&1
+fi
 #+end_src
 
 ** builds/thread-build.sh :code:
@@ -1149,37 +1148,43 @@ fi
 :CUSTOM_ID: builds-rl-json-build-sh
 :END:
 #+begin_src sh
-  # shellcheck source=../src/builds/common.sh
-  . /builds/common.sh
-  # shellcheck source=../src/builds/env-vars.sh
-  . /builds/env-vars.sh
-  # shellcheck disable=SC1091
-  . /VERSIONS
+# shellcheck source=../src/builds/common.sh
+. /builds/common.sh
+# shellcheck source=../src/builds/env-vars.sh
+. /builds/env-vars.sh
+# shellcheck disable=SC1091
+. /VERSIONS
 
-  build_setup
+build_setup
 
-  package_directory=rl_json-"${RL_JSON_VERSION}"
+# * Get from git repository
+package_directory=rl_json-"${RL_JSON_VERSION}"
+repo="https://github.com/RubyLane/rl_json.git"
+extra="--recurse-submodules --shallow-submodules --depth 1 --branch ${RL_JSON_VERSION}"
 
-  if [ ! -d /workspaces/"${package_directory}" ]; then
-      cd /workspaces && sh /builds/rl_json-download.sh
-      tar xvfz "${package_directory}".tar.gz
-  fi
+build_git_clone $package_directory $repo $extra
 
-  mkdir -p /workspaces/logs
-  cd /workspaces/"${package_directory}" || exit 1
-  echo "Running the autoconf configure in /workspaces/${package_directory}"
-  autoconf || exit 1
-  ls -la config*
-  echo "Building ${package_directory}"
-  : > /workspaces/logs/"${package_directory}".log
-  ./configure --prefix="${PREFIX}" \
-       --with-tcl="${PREFIX}"/lib \
-       --with-tclinclude="${PREFIX}"/include 2>&1 | tee -a /workspaces/logs/"${package_directory}".log
-  # cut down on the output to stdout to make Travis-CI consoles faster
-  make
-  make install 2>&1 | tee -a /workspaces/logs/"${package_directory}".log
+# Because https://github.com/RubyLane/rl_json/issues/41#
+#if [ ! -d /workspaces/"${package_directory}" ]; then
+#    cd /workspaces && sh /builds/rl_json-download.sh
+#    tar xvfz "${package_directory}".tar.gz
+#fi
 
-  build_cleanup
+mkdir -p /workspaces/logs
+cd /workspaces/"${package_directory}" || exit 1
+echo "Running the autoconf configure in /workspaces/${package_directory}"
+autoconf || exit 1
+ls -la config*
+echo "Building ${package_directory}"
+: > /workspaces/logs/"${package_directory}".log
+./configure --prefix="${PREFIX}" \
+    --with-tcl="${PREFIX}"/lib \
+    --with-tclinclude="${PREFIX}"/include 2>&1 | tee -a /workspaces/logs/"${package_directory}".log
+# cut down on the output to stdout to make Travis-CI consoles faster
+make
+make install 2>&1 | tee -a /workspaces/logs/"${package_directory}".log
+
+build_cleanup
 #+end_src
 
 ** builds/rl_json-download.sh :code:
@@ -1187,10 +1192,10 @@ fi
 :CUSTOM_ID: builds-rl-json-download-sh
 :END:
 #+begin_src sh
-  if [ ! -f rl_json$-"{RL_JSON_VERSION}".tar.gz ] ; then
-      echo "${WGET_OPTIONS}" https://github.com/RubyLane/rl_json/archive/refs/tags/"${RL_JSON_VERSION}".tar.gz
-      wget "${WGET_OPTIONS}" https://github.com/RubyLane/rl_json/archive/refs/tags/"${RL_JSON_VERSION}".tar.gz -O rl_json-"${RL_JSON_VERSION}".tar.gz
-  fi
+if [ ! -f rl_json$-"{RL_JSON_VERSION}".tar.gz ] ; then
+    echo "${WGET_OPTIONS}" https://github.com/RubyLane/rl_json/archive/refs/tags/"${RL_JSON_VERSION}".tar.gz
+    wget "${WGET_OPTIONS}" https://github.com/RubyLane/rl_json/archive/refs/tags/"${RL_JSON_VERSION}".tar.gz -O rl_json-"${RL_JSON_VERSION}".tar.gz
+fi
 #+end_src
 
 * Tests :test:noexport:
@@ -1240,12 +1245,6 @@ load '.bats-battery/bats-support/load.bash'
   }
 
 #+end_src
-
-#+RESULTS:
-: 1..2
-: ok 1 Check shell files
-: /tmp/babel-5WGsj2
-: ok 2 Check VERSION file
 
 ** 02.dockerfile_check.bats :test:
 :PROPERTIES:

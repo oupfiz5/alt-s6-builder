@@ -491,7 +491,7 @@ BASE_IMAGE_TAG="${BASE_IMAGE_TAG:-sisyphus-3.1.4.2}"
 :CUSTOM_ID: ----github--trigger-on-push
 :END:
 #+begin_src yaml :shebang ""
-  Trigger: 1
+Trigger: 2
 #+end_src
 ** ../.gitignore :code:
 :PROPERTIES:

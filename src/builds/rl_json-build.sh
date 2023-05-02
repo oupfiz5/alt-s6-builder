@@ -13,7 +13,8 @@ package_directory="rl_json-${RL_JSON_VERSION}"
 repo='https://github.com/RubyLane/rl_json.git'
 extra="--recurse-submodules --shallow-submodules --depth 1 --branch ${RL_JSON_VERSION}"
 
-build_git_clone "$package_directory" "$repo" "$extra"
+# shellcheck disable=SC2086
+build_git_clone $package_directory $repo $extra
 
 # Because https://github.com/RubyLane/rl_json/issues/41#
 #if [ ! -d /workspaces/"${package_directory}" ]; then

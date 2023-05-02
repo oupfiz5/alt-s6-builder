@@ -197,11 +197,11 @@ For configuration is using docker environment variable and/or =builds/env-vars.s
 |--------------------+---------+-------------------------------------|
 | NS_MODULES_VERSION | 4.99.24 | Define NaviServer modules version   |
 |--------------------+---------+-------------------------------------|
-| RL_JSON_VERSION    |  0.11.2 | Define [[https://github.com/RubyLane/rl_json][RL_JSON]] version              |
+| RL_JSON_VERSION    |  0.12.2 | Define [[https://github.com/RubyLane/rl_json][RL_JSON]] version              |
 |--------------------+---------+-------------------------------------|
-| TCL_VERSION        |  8.6.12 | Define tcl version                  |
+| TCL_VERSION        |  8.6.13 | Define tcl version                  |
 |--------------------+---------+-------------------------------------|
-| TCLLIB_VERSION     |    1.21 | Define tcl lib version              |
+| TCLLIB_VERSION     |    1.20 | Define tcl lib version              |
 |--------------------+---------+-------------------------------------|
 | TDOM_VERSION       |   0.9.1 | Define tdom version                 |
 |--------------------+---------+-------------------------------------|
@@ -218,10 +218,10 @@ For configuration is using docker environment variable and/or =builds/env-vars.s
 :END:
 Run the build container in the background with Docker:
 #+begin_example
-mkdir -p $PWD/workspaces
+mkdir -p $pwd/workspaces
 docker run -itd \
-    -v $PWD/workspaces:/workspaces\
-    -v $PWD/builds:/builds \
+    -v $pwd/workspaces:/workspaces\
+    -v $pwd/builds:/builds \
     --name=alt-s6-builder \
     oupfiz5/alt-s6-builder:23.05
 #+end_example
@@ -1168,7 +1168,8 @@ package_directory="rl_json-${RL_JSON_VERSION}"
 repo='https://github.com/RubyLane/rl_json.git'
 extra="--recurse-submodules --shallow-submodules --depth 1 --branch ${RL_JSON_VERSION}"
 
-build_git_clone "$package_directory" "$repo" "$extra"
+# shellcheck disable=SC2086
+build_git_clone $package_directory $repo $extra
 
 # Because https://github.com/RubyLane/rl_json/issues/41#
 #if [ ! -d /workspaces/"${package_directory}" ]; then
